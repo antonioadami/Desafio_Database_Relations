@@ -18,13 +18,15 @@ class Order {
   id: string;
 
   @ManyToOne(() => Customer)
-  @JoinColumn({ name: 'costumer_id' })
+  @JoinColumn({ name: 'customer_id' })
   customer: Customer;
 
   @Column()
-  costumer_id: string;
+  customer_id: string;
 
-  @OneToMany(() => OrdersProducts, ordersProducts => ordersProducts.order)
+  @OneToMany(() => OrdersProducts, ordersProducts => ordersProducts.order, {
+    cascade: true,
+  })
   order_products: OrdersProducts[];
 
   @CreateDateColumn()

@@ -17,11 +17,13 @@ class OrdersRepository implements IOrdersRepository {
       order_products: products,
     });
 
-    return this.ormRepository.save(order);
+    await this.ormRepository.save(order);
+
+    return order;
   }
 
   public async findById(id: string): Promise<Order | undefined> {
-    return this.ormRepository.findOne(id);
+    return this.ormRepository.findOne(id, { relations: ['orders_products'] });
   }
 }
 
